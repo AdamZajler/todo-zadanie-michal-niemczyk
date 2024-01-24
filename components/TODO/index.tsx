@@ -25,7 +25,7 @@ export const TODO = () => {
       : { id: Date.now(), title: value, checked: false };
 
     if (!localStorageData) {
-      localStorage.setItem('TODO', JSON.stringify([value]));
+      localStorage.setItem('TODO', JSON.stringify([newElement]));
       setLocalState([newElement]);
     } else if (isSmthToEdit) {
       const parsed = localState.map((item) =>
@@ -80,9 +80,11 @@ export const TODO = () => {
 
   useEffect(() => {
     const localState = localStorage.getItem('TODO');
-    if (!localState) return;
 
-    setLocalState(JSON.parse(localState));
+    if (localState) {
+      setLocalState(JSON.parse(localState));
+    }
+
     setLoading(false);
   }, []);
 
